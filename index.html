@@ -33,6 +33,7 @@
             "Description": "Black Men T Shirts",
             "longdescription": "lorem ipsum",
             "image": "https://static.aceomni.cmsaceturtle.com/prod/product-image/aceomni/Wrangler/Monobrand/WMSH003708/WMSH003708_1.jpg",
+            "galleryimages": ["https://static.aceomni.cmsaceturtle.com/prod/product-image/aceomni/Wrangler/Myntra/WMSH004571/WMSH004571_1.jpg", "https://static.aceomni.cmsaceturtle.com/prod/product-image/aceomni/Wrangler/Myntra/WMSH004572/WMSH004572_1.jpg"],
             "category": ["clothing", "men"],
             "attributes": {
                 "color": ["red", "black", "blue"],
@@ -93,6 +94,7 @@
             "Description": "Comfortable running shoes",
             "longdescription": "lorem ipsum",
             "image": "https://example.com/images/shoes1.jpg",
+            "galleryimages": '',
             "category": ["footwear", "unisex"],
             "attributes": {
                 "color": ["white", "black", "green"],
@@ -168,6 +170,7 @@
             "Description": "Stylish slim fit jeans",
             "longdescription": "lorem ipsum",
             "image": "https://example.com/images/jeans1.jpg",
+            "galleryimages": '',
             "category": ["clothing", "men"],
             "attributes": {
                 "color": ["blue", "black"],
@@ -223,6 +226,7 @@
             "Description": "Trendy casual sneakers",
             "longdescription": "lorem ipsum",
             "image": "https://example.com/images/sneakers1.jpg",
+            "galleryimages": '',
             "category": ["footwear", "unisex"],
             "attributes": {
                 "color": ["red", "white", "black"],
@@ -298,6 +302,7 @@
             "Description": "Stylish denim jacket",
             "longdescription": "lorem ipsum",
             "image": "https://example.com/images/jacket1.jpg",
+            "galleryimages": '',
             "category": ["clothing", "men"],
             "attributes": {
                 "color": ["blue", "black"],
@@ -343,8 +348,13 @@
         html += `<div class="col-md-3 mb-2">
             <div class="card">
                 <div class="card-body">
-                    <img class="w-100" src="${item.image}">
-                    <h5>${item.title}</h5>`;
+                    <img class="w-100 swipesimg" src="${item.image}">`;
+                    if(item.galleryimages){
+                        item.galleryimages.map(img =>{
+                        html += ` <img class="w-100  swipesimg" src="${img}">`;   
+                    })
+                }
+        html += `<h5>${item.title}</h5>`;
         Object.entries(item.attributes).map(([key, values]) => {
             if (key === "color") {
                 html += `<div class="d-flex" style="gap:2px">`
