@@ -14,9 +14,21 @@
 
     <div class="container p-4">
         <h3 class="mb-2">Products</h3>
-        <div class="row" id="productContainer">
 
+        <div class="row">
+            <div class="col-md-2">
+                <div class="filters" id="filtercontainer">
+
+                </div>
+            </div>
+            <div class="col-md-10">
+                <div class="row" id="productContainer">
+
+                </div>
+            </div>
         </div>
+
+
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
@@ -344,23 +356,40 @@
     ];
 
     var html = '';
+    var filters = '';
+    var uniquqattributes = {};
     productarray.map(item => {
         html += `<div class="col-md-3 mb-2">
             <div class="card">
                 <div class="card-body">
+                    <div class="swipercontainerwrap">
                     <img class="w-100 swipesimg" src="${item.image}">`;
-                    if(item.galleryimages){
-                        item.galleryimages.map(img =>{
-                        html += ` <img class="w-100  swipesimg" src="${img}">`;   
-                    })
-                }
-        html += `<h5>${item.title}</h5>`;
+        if (item.galleryimages) {
+            item.galleryimages.map(img => {
+                html += ` <img class="w-100  swipesimg" src="${img}">`;
+            })
+        }
+        html += `</div><h5>${item.title}</h5>`;
         Object.entries(item.attributes).map(([key, values]) => {
+            const attributestore = item.attributes;
+
+            for (const key in attributestore) {
+                if (!uniquqattributes[key]) {
+                    uniquqattributes[key] = new Set();
+                }
+                attributestore[key].forEach(value => uniquqattributes[key].add(value));
+            }
+
+
+
+
+
             if (key === "color") {
                 html += `<div class="d-flex" style="gap:2px">`
                 // console.log(typeof(key))
                 values.forEach(element => {
                     // console.log(element)
+
                     html += ` <span title="${element}" style="background-color: ${element}; width:10px; height:10px; display: inline-flex; border:1px solid #000;"></span><br>`
 
                 });
@@ -368,8 +397,11 @@
                 html += `</div>`
             }
             else {
+
                 html += ` <span>${key}: ${values.join(', ')}</span><br>`
             }
+
+
 
         })
 
@@ -380,6 +412,67 @@
     });
 
     document.querySelector("#productContainer").innerHTML = html;
+    document.querySelector("#filtercontainer").innerHTML = filters;
+
+
+    const slideshowContainer = document.querySelector('.swipercontainerwrap');
+
+    function showSlides() {
+        console.log("first")
+        const slides = slideshowContainer.querySelectorAll('.swipesimg');
+        let currentSlideIndex = 0;
+
+        slides.forEach(slide => {
+            slide.style.display = 'none';
+        });
+
+        slides[currentSlideIndex].style.display = 'block';
+
+        setInterval(() => {
+            slides[currentSlideIndex].style.display = 'none';
+            currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+            slides[currentSlideIndex].style.display = 'block';
+        }, 2000); // 2 seconds interval
+    }
+
+    showSlides();
+
+    // console.log(uniquqattributes)
+
+    for (const key in uniquqattributes) {
+        filters += `<p>${key}</p>`;
+
+        Array.from(uniquqattributes[key]).forEach(vals => {
+            filters += `<input type="checkbox" class="filters" value="${vals}"><label>${vals}</label><br>`;
+        })
+
+    }
+
+    document.querySelector("#filtercontainer").innerHTML = filters;
+
+    var filters = document.querySelectorAll(".filters");
+    var filterVals = {};
+    Array.from(filters).forEach(function (filter) {
+        filter.addEventListener("click", function () {
+            // Your event handler logic here
+            if(this.checked){
+                // console.log(this.value)
+                filterVals.push(this.value);
+                console.log(filterVals)
+                showFilteredproducts(filterVals)
+            }
+
+        });
+    });
+
+    function showFilteredproducts(filterVals){
+        productarray.map(item => {
+            
+        })
+    }
+
+
+
 </script>
 
 </html>
