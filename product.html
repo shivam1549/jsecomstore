@@ -1,12 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <style>
+        .filtervals {
+            cursor: pointer;
+        }
+
+        .galleryimg img {
+            /* width: 4rem; */
+            height: 4rem;
+            object-fit: contain;
+
+        }
+
+        .galleryimg {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            /* flex-wrap: wrap; */
+        }
+    </style>
+
 </head>
+
 <body>
 
     <div class="container p-5">
@@ -23,11 +46,11 @@
             </div>
         </div>
     </div>
-    
+
 </body>
 
 <script>
-     const productarray = [
+    const productarray = [
         {
             "id": 1,
             "title": "Black Men T Shirts",
@@ -45,47 +68,71 @@
                 {
                     "color": "red",
                     "size": "S",
-                    "price": 40
+                    "price": 40,
+                    "img": "https://static.aceomni.cmsaceturtle.com/prod/product-image/aceomni/Wrangler/Myntra/WMSH004571/WMSH004571_1.jpg",
+                    "galleryimg": ["https://static.aceomni.cmsaceturtle.com/prod/product-image/aceomni/Wrangler/Myntra/WMSH004571/WMSH004571_2.jpg", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrPDiRhM6yfSsy13UVI930fEk8xXNknRJK5AHIU7QuWuUuPvTDbipALZDhIpkhx2w_09o&usqp=CAU"]
                 },
                 {
                     "color": "red",
                     "size": "M",
-                    "price": 50
+                    "price": 50,
+                    "img": "https://static.aceomni.cmsaceturtle.com/prod/product-image/aceomni/Wrangler/Myntra/WMSH004571/WMSH004571_1.jpg",
+                    "galleryimg": ["https://static.aceomni.cmsaceturtle.com/prod/product-image/aceomni/Wrangler/Myntra/WMSH004571/WMSH004571_2.jpg", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrPDiRhM6yfSsy13UVI930fEk8xXNknRJK5AHIU7QuWuUuPvTDbipALZDhIpkhx2w_09o&usqp=CAU"]
+
+
                 },
                 {
                     "color": "red",
                     "size": "XL",
-                    "price": 60
+                    "price": 60,
+                    "img": "https://static.aceomni.cmsaceturtle.com/prod/product-image/aceomni/Wrangler/Myntra/WMSH004571/WMSH004571_1.jpg",
+                    "galleryimg": ["https://static.aceomni.cmsaceturtle.com/prod/product-image/aceomni/Wrangler/Myntra/WMSH004571/WMSH004571_2.jpg", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrPDiRhM6yfSsy13UVI930fEk8xXNknRJK5AHIU7QuWuUuPvTDbipALZDhIpkhx2w_09o&usqp=CAU"]
+
+
                 },
                 {
                     "color": "black",
                     "size": "S",
-                    "price": 45
+                    "price": 45,
+                    "img": "https://static.aceomni.cmsaceturtle.com/prod/product-image/aceomni/Wrangler/Monobrand/WMSH003708/WMSH003708_1.jpg",
+                    "galleryimg": ""
                 },
                 {
                     "color": "black",
                     "size": "M",
-                    "price": 55
+                    "price": 55,
+                    "img": "https://static.aceomni.cmsaceturtle.com/prod/product-image/aceomni/Wrangler/Monobrand/WMSH003708/WMSH003708_1.jpg",
+                    "galleryimg": ""
+
                 },
                 {
                     "color": "black",
                     "size": "XL",
-                    "price": 65
+                    "price": 65,
+                    "img": "https://static.aceomni.cmsaceturtle.com/prod/product-image/aceomni/Wrangler/Monobrand/WMSH003708/WMSH003708_1.jpg",
+                    "galleryimg": ""
+
                 },
                 {
                     "color": "blue",
                     "size": "S",
-                    "price": 50
+                    "price": 50,
+                    "img": "https://static.aceomni.cmsaceturtle.com/prod/product-image/aceomni/Wrangler/Myntra/WMSH004572/WMSH004572_1.jpg",
+                    "galleryimg": ""
                 },
                 {
                     "color": "blue",
                     "size": "M",
-                    "price": 60
+                    "price": 60,
+                    "img": "https://static.aceomni.cmsaceturtle.com/prod/product-image/aceomni/Wrangler/Myntra/WMSH004572/WMSH004572_1.jpg",
+                    "galleryimg": ""
                 },
                 {
                     "color": "blue",
                     "size": "XL",
-                    "price": 70
+                    "price": 70,
+                    "img": "https://static.aceomni.cmsaceturtle.com/prod/product-image/aceomni/Wrangler/Myntra/WMSH004572/WMSH004572_1.jpg",
+                    "galleryimg": ""
                 }
             ]
         },
@@ -347,59 +394,172 @@
 
     showProduct();
 
-    function showProduct(){
+    function showProduct() {
         var producthtml = '';
         var productDescription = '';
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
-        const id= urlParams.get('id');
+        const id = urlParams.get('id');
         // console.log(id)
         var productIndex = productarray.findIndex(item => item.id == parseInt(id));
-        
-        if(productIndex !== -1){
+
+        if (productIndex !== -1) {
             // alert(productIndex); 
             producthtml += `
              <div class="swipercontainerwrap">
-                    <img class="w-100 swipesimg" src="${productarray[productIndex].image}">`;
+                    <img class="w-100 swipesimg" id="mainimg" src="${productarray[productIndex].image}"><div id="galleryimg" class="galleryimg">`;
             if (productarray[productIndex].galleryimages) {
                 productarray[productIndex].galleryimages.map(img => {
-                    producthtml += ` <img class="w-100  swipesimg" src="${img}">`;
+                    producthtml += ` <img class="swipesimg" src="${img}">`;
                 })
             }
-             producthtml += `</div>`;
-             productDescription += `
+            producthtml += `</div></div>`;
+            productDescription += `
              <h2>${productarray[productIndex].title}</h2>
-             <h5 class="text-success bold mt-2 mb-2"> $ ${productarray[productIndex].Price}</h5>
+             <h5 class="text-success bold mt-2 mb-2" id="price"></h5>
 
              <div>${productarray[productIndex].Description}</div>
-             `;
-            
-             document.querySelector(".productinner").innerHTML = productDescription;
 
-             document.querySelector("#imgslider").innerHTML = producthtml;
-             showSlides();
+
+             `;
+            Object.entries(productarray[productIndex].attributes).map(([key, values]) => {
+
+                if (key === "color") {
+                    productDescription += `<strong class="mb-2">${key[0].toUpperCase() + key.slice(1)}</strong>`;
+                    productDescription += `<div class="d-flex" style="gap:2px">`
+                    // console.log(typeof(key))
+                    var i = 1;
+                    values.forEach(element => {
+                        // console.log(element)
+
+                        productDescription += `<span class="filtervals" title="${element}" style="background-color: ${element}; width:10px; height:10px; display: inline-flex; border:1px solid #000;"><input type="radio" name="${key}" class="selectfilter"  value="${element}"></span><br>`
+                        i++;
+                    });
+
+                    productDescription += `</div>`
+                }
+                else {
+
+                    productDescription += ` <strong class="mb-2">${key[0].toUpperCase() + key.slice(1)}</strong><br>`
+                    var i = 1;
+                    values.forEach(element => {
+                        // console.log(element)
+
+                        productDescription += `<span class="filtervals" style="border:1px solid #cacaca; width:15px; height:15px; text-align:center; margin: 0 10px;" title="${element}">${element} <input type="radio" name="${key}" class="selectfilter"  value="${element}"></span>`
+                        i++;
+                    });
+                }
+
+
+
+            })
+
+            document.querySelector(".productinner").innerHTML = productDescription;
+
+            document.querySelector("#imgslider").innerHTML = producthtml;
+
+
+
+            var objattributeLenght = Object.keys(productarray[productIndex].attributes).length;
+            // showSlides();
+            var filtersattribute = {}
+            var selectedFilters = document.querySelectorAll(".selectfilter");
+            // console.log(selectedFilters.length + " lenght")
+            selectedFilters.forEach(function (filter) {
+                filter.addEventListener("change", function () {
+                    // console.log("hi")
+                    if (!filtersattribute[this.name]) {
+                        filtersattribute[this.name] = [];
+                    }
+                    if (this.checked) {
+                        if (filtersattribute[this.name].length > 0) {
+                            filtersattribute[this.name].splice(0, 1);
+                        }
+                        filtersattribute[this.name].push(this.value);
+                    }
+
+
+                    console.log(filtersattribute)
+
+                    var objfiltersattributeenght = Object.keys(filtersattribute).length;
+
+                    productarray[productIndex].variations.forEach(elem => {
+                        let allMatch = true;
+                        for (let key in filtersattribute) {
+                            if (!filtersattribute[key].includes(elem[key])) {
+                                allMatch = false;
+                                break;
+                            }
+                        }
+                        if (allMatch) {
+                            if (objfiltersattributeenght === objattributeLenght) {
+                                JSON.stringify(elem);
+                                document.querySelector("#price").innerHTML = "$" + elem.price;
+                                document.querySelector("#mainimg").src = elem.img;
+                                if (elem.galleryimg.length > 0) {
+                                    var galleryimgvariations = "";
+                                    console.log(elem.galleryimg)
+                                    elem.galleryimg.forEach(image => {
+                                        galleryimgvariations += ` <img class="swipesimg" src="${image}">`;
+                                    })
+                                    document.querySelector("#galleryimg").innerHTML = galleryimgvariations;
+                                }
+                                else {
+                                    document.querySelector("#galleryimg").innerHTML = "";
+                                }
+                            }
+                            // console.log(`Matching Variation: ${JSON.stringify(elem)}`);
+                            // console.log(`Price: ${elem.price}`);
+                        }
+
+                    })
+                    var swiperimgages = document.querySelectorAll(".swipesimg");
+                    swiperImg(swiperimgages)
+
+
+
+                })
+            })
+
+
+            var swiperimgages = document.querySelectorAll(".swipesimg");
+            swiperImg(swiperimgages)
+
 
         }
     }
 
-    function showSlides() {
-            // console.log("first")
-            const slideshowContainer = document.querySelector('.swipercontainerwrap');
-            const slides = slideshowContainer.querySelectorAll('.swipesimg');
-            let currentSlideIndex = 0;
 
-            slides.forEach(slide => {
-                slide.style.display = 'none';
+    function swiperImg(swiperimg) {
+        swiperimg.forEach(swiper => {
+            swiper.addEventListener("click", function () {
+                // Display an alert when an image is clicked
+                // alert("he");
+
+                // Set the src of the main image to the src of the clicked image
+                document.querySelector("#mainimg").src = this.src;
             });
+        });
+    }
 
+    function showSlides() {
+        // console.log("first")
+        const slideshowContainer = document.querySelector('.swipercontainerwrap');
+        const slides = slideshowContainer.querySelectorAll('.swipesimg');
+        let currentSlideIndex = 0;
+
+        slides.forEach(slide => {
+            slide.style.display = 'none';
+        });
+
+        slides[currentSlideIndex].style.display = 'block';
+
+        setInterval(() => {
+            slides[currentSlideIndex].style.display = 'none';
+            currentSlideIndex = (currentSlideIndex + 1) % slides.length;
             slides[currentSlideIndex].style.display = 'block';
-
-            setInterval(() => {
-                slides[currentSlideIndex].style.display = 'none';
-                currentSlideIndex = (currentSlideIndex + 1) % slides.length;
-                slides[currentSlideIndex].style.display = 'block';
-            }, 2000); // 2 seconds interval
-        }
+        }, 2000); // 2 seconds interval
+    }
 </script>
 
 </html>
