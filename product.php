@@ -187,14 +187,29 @@
                 combination[parts[0].trim()] = parts[1];
             });
 
+            console.log(combination)
+
             combinationvalues.push(combination);
         });
 
-          // console.log(combinationvalues)
+      console.log(combinationvalues)
 
         var formdata = new FormData(document.querySelector("#formdata"));
         formdata.append("attributes", JSON.stringify(attributes));
-        formdata.append("variations", JSON.stringify(combinationvalues));
+        formdata.append("variations", JSON.stringify(combinationvalues.map((combination, index) => {
+            // Append files to FormData
+            formdata.append(`img_${index}`, combination.img);
+            combination.gallery.forEach((file, fileIndex) => {
+                formdata.append(`gallery_${index}_${fileIndex}`, file);
+            });
+
+            // Remove the file objects from the combination for JSON serialization
+            return {
+                ...combination,
+                img: `img_${index}`,
+                gallery: combination.gallery.map((_, fileIndex) => `gallery_${index}_${fileIndex}`)
+            };
+        })));
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "add-product.php", true);
         xhr.onreadystatechange = function() {
