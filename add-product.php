@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Handle multiple file uploads for the gallery
 
     $gallery_images = [];
-    print_r($_FILES['galleryimages']);
+    // print_r($_FILES['galleryimages']);
     if (isset($_FILES['galleryimages'])) {
         // Loop through each uploaded file
         foreach ($_FILES['galleryimages']['name'] as $key => $name) {
@@ -50,6 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   
     // Get the JSON data from the request
 $attributes = json_decode($_POST['attributes'], true);
+$encoded_attribute_json = json_encode($attributes);
 $variations = json_decode($_POST['variations'], true);
 
 // Directory to save images
@@ -95,27 +96,27 @@ foreach ($variations as $index => $combination) {
 $encoded_variations = json_encode($result);
 // $gallery_imagesjson = json_encode($gallery_images);
 
-echo $gallery_images_json;
+// echo $gallery_images_json;
 
-    // $sql = "INSERT INTO `products` 
-    // (title, reg_price, sale_price, qty, description, long_description, image, gallery, category, attributes, variations, status)
-    // VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO `products` 
+    (title, reg_price, sale_price, qty, description, long_description, image, gallery, category, attributes, variations, status)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-    // // Create a prepared statement
-    // $stmt = $conn->prepare($sql);
+    // Create a prepared statement
+    $stmt = $conn->prepare($sql);
 
-    // if ($stmt) {
+    if ($stmt) {
       
-    //     $stmt->bind_param("siiisssssssi", $title, $reg_price, $sale_price, $qty, $description, $long_description, $main_image, $gallery_imagesjson, $category, $attributes_json, $encoded_variations, $status);
+        $stmt->bind_param("siiisssssssi", $title, $reg_price, $sale_price, $qty, $description, $long_description, $main_image, $gallery_images_json, $category, $encoded_attribute_json, $encoded_variations, $status);
 
-    //     if ($stmt->execute()) {
-    //         echo json_encode(["success" => "New record created successfully"]);
-    //     } else {
-    //         echo json_encode(["error" => "Error: " . $stmt->error]);
-    //     }
-    //     $stmt->close();
-    // } else {
-    //     echo json_encode(["error" => "Error preparing statement: " . $conn->error]);
-    // }
-    // $conn->close();
+        if ($stmt->execute()) {
+            echo json_encode(["success" => "New record created successfully"]);
+        } else {
+            echo json_encode(["error" => "Error: " . $stmt->error]);
+        }
+        $stmt->close();
+    } else {
+        echo json_encode(["error" => "Error preparing statement: " . $conn->error]);
+    }
+    $conn->close();
 }

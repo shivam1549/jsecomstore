@@ -1,4 +1,5 @@
 <?php
+session_start();
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -17,7 +18,7 @@ return mysqli_real_escape_string($conn, $data);
 }
 
 function isImageFile($file) {
-    $allowed_types = array(IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_GIF);
+    $allowed_types = array(IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_GIF, IMAGETYPE_WEBP);
     $detected_type = exif_imagetype($file);
     return in_array($detected_type, $allowed_types);
 }

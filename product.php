@@ -38,7 +38,7 @@
             </div>
             <div class="form-group mt-2">
                 <label for="gallery">Gallery</label>
-                <input type="file" multiple name="galleryimages">
+                <input type="file" multiple name="galleryimages[]">
             </div>
             <div class="form-group">
                 <label for="category">Category</label>
