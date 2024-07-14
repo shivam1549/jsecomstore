@@ -47,486 +47,235 @@
         </div>
     </div>
 
-</body>
+
 
 <script>
-    const productarray = [
-        {
-            "id": 1,
-            "title": "Black Men T Shirts",
-            "Price": 400,
-            "Description": "Black Men T Shirts",
-            "longdescription": "lorem ipsum",
-            "image": "https://static.aceomni.cmsaceturtle.com/prod/product-image/aceomni/Wrangler/Monobrand/WMSH003708/WMSH003708_1.jpg",
-            "galleryimages": ["https://static.aceomni.cmsaceturtle.com/prod/product-image/aceomni/Wrangler/Myntra/WMSH004571/WMSH004571_1.jpg", "https://static.aceomni.cmsaceturtle.com/prod/product-image/aceomni/Wrangler/Myntra/WMSH004572/WMSH004572_1.jpg"],
-            "category": ["clothing", "men"],
-            "attributes": {
-                "color": ["red", "black", "blue"],
-                "size": ["S", "M", "XL"]
-            },
-            "variations": [
-                {
-                    "color": "red",
-                    "size": "S",
-                    "price": 40,
-                    "img": "https://static.aceomni.cmsaceturtle.com/prod/product-image/aceomni/Wrangler/Myntra/WMSH004571/WMSH004571_1.jpg",
-                    "galleryimg": ["https://static.aceomni.cmsaceturtle.com/prod/product-image/aceomni/Wrangler/Myntra/WMSH004571/WMSH004571_2.jpg", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrPDiRhM6yfSsy13UVI930fEk8xXNknRJK5AHIU7QuWuUuPvTDbipALZDhIpkhx2w_09o&usqp=CAU"]
-                },
-                {
-                    "color": "red",
-                    "size": "M",
-                    "price": 50,
-                    "img": "https://static.aceomni.cmsaceturtle.com/prod/product-image/aceomni/Wrangler/Myntra/WMSH004571/WMSH004571_1.jpg",
-                    "galleryimg": ["https://static.aceomni.cmsaceturtle.com/prod/product-image/aceomni/Wrangler/Myntra/WMSH004571/WMSH004571_2.jpg", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrPDiRhM6yfSsy13UVI930fEk8xXNknRJK5AHIU7QuWuUuPvTDbipALZDhIpkhx2w_09o&usqp=CAU"]
 
 
-                },
-                {
-                    "color": "red",
-                    "size": "XL",
-                    "price": 60,
-                    "img": "https://static.aceomni.cmsaceturtle.com/prod/product-image/aceomni/Wrangler/Myntra/WMSH004571/WMSH004571_1.jpg",
-                    "galleryimg": ["https://static.aceomni.cmsaceturtle.com/prod/product-image/aceomni/Wrangler/Myntra/WMSH004571/WMSH004571_2.jpg", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrPDiRhM6yfSsy13UVI930fEk8xXNknRJK5AHIU7QuWuUuPvTDbipALZDhIpkhx2w_09o&usqp=CAU"]
+    // showProduct();
 
+    async function fetchDataById() {
 
-                },
-                {
-                    "color": "black",
-                    "size": "S",
-                    "price": 45,
-                    "img": "https://static.aceomni.cmsaceturtle.com/prod/product-image/aceomni/Wrangler/Monobrand/WMSH003708/WMSH003708_1.jpg",
-                    "galleryimg": ""
-                },
-                {
-                    "color": "black",
-                    "size": "M",
-                    "price": 55,
-                    "img": "https://static.aceomni.cmsaceturtle.com/prod/product-image/aceomni/Wrangler/Monobrand/WMSH003708/WMSH003708_1.jpg",
-                    "galleryimg": ""
-
-                },
-                {
-                    "color": "black",
-                    "size": "XL",
-                    "price": 65,
-                    "img": "https://static.aceomni.cmsaceturtle.com/prod/product-image/aceomni/Wrangler/Monobrand/WMSH003708/WMSH003708_1.jpg",
-                    "galleryimg": ""
-
-                },
-                {
-                    "color": "blue",
-                    "size": "S",
-                    "price": 50,
-                    "img": "https://static.aceomni.cmsaceturtle.com/prod/product-image/aceomni/Wrangler/Myntra/WMSH004572/WMSH004572_1.jpg",
-                    "galleryimg": ""
-                },
-                {
-                    "color": "blue",
-                    "size": "M",
-                    "price": 60,
-                    "img": "https://static.aceomni.cmsaceturtle.com/prod/product-image/aceomni/Wrangler/Myntra/WMSH004572/WMSH004572_1.jpg",
-                    "galleryimg": ""
-                },
-                {
-                    "color": "blue",
-                    "size": "XL",
-                    "price": 70,
-                    "img": "https://static.aceomni.cmsaceturtle.com/prod/product-image/aceomni/Wrangler/Myntra/WMSH004572/WMSH004572_1.jpg",
-                    "galleryimg": ""
-                }
-            ]
-        },
-        {
-            "id": 2,
-            "title": "Running Shoes",
-            "Price": 800,
-            "Description": "Comfortable running shoes",
-            "longdescription": "lorem ipsum",
-            "image": "https://example.com/images/shoes1.jpg",
-            "galleryimages": '',
-            "category": ["footwear", "unisex"],
-            "attributes": {
-                "color": ["white", "black", "green"],
-                "size": ["7", "8", "9", "10"]
-            },
-            "variations": [
-                {
-                    "color": "white",
-                    "size": "7",
-                    "price": 100
-                },
-                {
-                    "color": "white",
-                    "size": "8",
-                    "price": 110
-                },
-                {
-                    "color": "white",
-                    "size": "9",
-                    "price": 120
-                },
-                {
-                    "color": "white",
-                    "size": "10",
-                    "price": 130
-                },
-                {
-                    "color": "black",
-                    "size": "7",
-                    "price": 105
-                },
-                {
-                    "color": "black",
-                    "size": "8",
-                    "price": 115
-                },
-                {
-                    "color": "black",
-                    "size": "9",
-                    "price": 125
-                },
-                {
-                    "color": "black",
-                    "size": "10",
-                    "price": 135
-                },
-                {
-                    "color": "green",
-                    "size": "7",
-                    "price": 110
-                },
-                {
-                    "color": "green",
-                    "size": "8",
-                    "price": 120
-                },
-                {
-                    "color": "green",
-                    "size": "9",
-                    "price": 130
-                },
-                {
-                    "color": "green",
-                    "size": "10",
-                    "price": 140
-                }
-            ]
-        },
-        {
-            "id": 3,
-            "title": "Slim Fit Jeans",
-            "Price": 600,
-            "Description": "Stylish slim fit jeans",
-            "longdescription": "lorem ipsum",
-            "image": "https://example.com/images/jeans1.jpg",
-            "galleryimages": '',
-            "category": ["clothing", "men"],
-            "attributes": {
-                "color": ["blue", "black"],
-                "size": ["30", "32", "34", "36"]
-            },
-            "variations": [
-                {
-                    "color": "blue",
-                    "size": "30",
-                    "price": 60
-                },
-                {
-                    "color": "blue",
-                    "size": "32",
-                    "price": 65
-                },
-                {
-                    "color": "blue",
-                    "size": "34",
-                    "price": 70
-                },
-                {
-                    "color": "blue",
-                    "size": "36",
-                    "price": 75
-                },
-                {
-                    "color": "black",
-                    "size": "30",
-                    "price": 65
-                },
-                {
-                    "color": "black",
-                    "size": "32",
-                    "price": 70
-                },
-                {
-                    "color": "black",
-                    "size": "34",
-                    "price": 75
-                },
-                {
-                    "color": "black",
-                    "size": "36",
-                    "price": 80
-                }
-            ]
-        },
-        {
-            "id": 4,
-            "title": "Casual Sneakers",
-            "Price": 500,
-            "Description": "Trendy casual sneakers",
-            "longdescription": "lorem ipsum",
-            "image": "https://example.com/images/sneakers1.jpg",
-            "galleryimages": '',
-            "category": ["footwear", "unisex"],
-            "attributes": {
-                "color": ["red", "white", "black"],
-                "size": ["6", "7", "8", "9"]
-            },
-            "variations": [
-                {
-                    "color": "red",
-                    "size": "6",
-                    "price": 55
-                },
-                {
-                    "color": "red",
-                    "size": "7",
-                    "price": 60
-                },
-                {
-                    "color": "red",
-                    "size": "8",
-                    "price": 65
-                },
-                {
-                    "color": "red",
-                    "size": "9",
-                    "price": 70
-                },
-                {
-                    "color": "white",
-                    "size": "6",
-                    "price": 60
-                },
-                {
-                    "color": "white",
-                    "size": "7",
-                    "price": 65
-                },
-                {
-                    "color": "white",
-                    "size": "8",
-                    "price": 70
-                },
-                {
-                    "color": "white",
-                    "size": "9",
-                    "price": 75
-                },
-                {
-                    "color": "black",
-                    "size": "6",
-                    "price": 65
-                },
-                {
-                    "color": "black",
-                    "size": "7",
-                    "price": 70
-                },
-                {
-                    "color": "black",
-                    "size": "8",
-                    "price": 75
-                },
-                {
-                    "color": "black",
-                    "size": "9",
-                    "price": 80
-                }
-            ]
-        },
-        {
-            "id": 5,
-            "title": "Denim Jacket",
-            "Price": 1000,
-            "Description": "Stylish denim jacket",
-            "longdescription": "lorem ipsum",
-            "image": "https://example.com/images/jacket1.jpg",
-            "galleryimages": '',
-            "category": ["clothing", "men"],
-            "attributes": {
-                "color": ["blue", "black"],
-                "size": ["M", "L", "XL"]
-            },
-            "variations": [
-                {
-                    "color": "blue",
-                    "size": "M",
-                    "price": 150
-                },
-                {
-                    "color": "blue",
-                    "size": "L",
-                    "price": 160
-                },
-                {
-                    "color": "blue",
-                    "size": "XL",
-                    "price": 170
-                },
-                {
-                    "color": "black",
-                    "size": "M",
-                    "price": 160
-                },
-                {
-                    "color": "black",
-                    "size": "L",
-                    "price": 170
-                },
-                {
-                    "color": "black",
-                    "size": "XL",
-                    "price": 180
-                }
-            ]
-        }
-    ];
-
-    showProduct();
-
-    function showProduct() {
-        var producthtml = '';
-        var productDescription = '';
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
         const id = urlParams.get('id');
-        // console.log(id)
-        var productIndex = productarray.findIndex(item => item.id == parseInt(id));
 
-        if (productIndex !== -1) {
-            // alert(productIndex); 
-            producthtml += `
-             <div class="swipercontainerwrap">
-                    <img class="w-100 swipesimg" id="mainimg" src="${productarray[productIndex].image}"><div id="galleryimg" class="galleryimg">`;
-            if (productarray[productIndex].galleryimages) {
-                productarray[productIndex].galleryimages.map(img => {
-                    producthtml += ` <img class="swipesimg" src="${img}">`;
-                })
+        try {
+            const response = await fetch(`get-single-product.php?data=${id}`);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
-            producthtml += `</div></div>`;
-            productDescription += `
-             <h2>${productarray[productIndex].title}</h2>
-             <h5 class="text-success bold mt-2 mb-2" id="price"></h5>
+            const data = await response.json();
+            console.log(data);
+            return data;
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
 
-             <div>${productarray[productIndex].Description}</div>
+        // console.log(id)
 
+    }
+    showProductdetails();
+    async function showProductdetails() {
 
-             `;
-            Object.entries(productarray[productIndex].attributes).map(([key, values]) => {
-
-                if (key === "color") {
-                    productDescription += `<strong class="mb-2">${key[0].toUpperCase() + key.slice(1)}</strong>`;
-                    productDescription += `<div class="d-flex" style="gap:2px">`
-                    // console.log(typeof(key))
-                    var i = 1;
-                    values.forEach(element => {
-                        // console.log(element)
-
-                        productDescription += `<span class="filtervals" title="${element}" style="background-color: ${element}; width:10px; height:10px; display: inline-flex; border:1px solid #000;"><input type="radio" name="${key}" class="selectfilter"  value="${element}"></span><br>`
-                        i++;
-                    });
-
-                    productDescription += `</div>`
+        try {
+            const productDatas = await fetchDataById();
+            const productData = productDatas.data;
+            if (productData) {
+                var producthtml = '';
+                var productDescription = '';
+                // alert(productIndex); 
+                producthtml += `
+     <div class="swipercontainerwrap">
+            <img class="w-100 swipesimg" id="mainimg" src="${productData.image}"><div id="galleryimg" class="galleryimg">`;
+                // console.log(productData.gallery + "gallimages")
+                if (productData.gallery) {
+                    const galleryArray = JSON.parse(productData.gallery);
+                    galleryArray.forEach(img => {
+                        producthtml += ` <img class="swipesimg" src="${img}">`;
+                    })
                 }
-                else {
+                producthtml += `</div></div>`;
+                productDescription += `
+     <h2>${productData.title}</h2>
 
-                    productDescription += ` <strong class="mb-2">${key[0].toUpperCase() + key.slice(1)}</strong><br>`
-                    var i = 1;
-                    values.forEach(element => {
-                        // console.log(element)
+     <h5 class="text-success bold mt-2 mb-2" id="price"></h5>
 
-                        productDescription += `<span class="filtervals" style="border:1px solid #cacaca; width:15px; height:15px; text-align:center; margin: 0 10px;" title="${element}">${element} <input type="radio" name="${key}" class="selectfilter"  value="${element}"></span>`
-                        i++;
-                    });
-                }
+     <div>${productData.description}</div>
+     <div><button type="button" disabled="true" data-productid="${productData.id}" class="btn btn-info add-to-cart">Add to cart +</button></div>
+     <div id="cartbutton"></div>
 
 
+     `;
+                //  console.log(productData.long_description)
+                // console.log(productData.attributes + "Argrrpro")
+                var attributesSingleproduct = JSON.parse(productData.attributes);
+                Object.entries(attributesSingleproduct).map(([key, values]) => {
+                    productDescription += "<div>";
+                    if (key === "color" || key === "Color") {
+                        productDescription += `<strong class="mb-2">${key[0].toUpperCase() + key.slice(1)}</strong><br>`;
+                        productDescription += `<div class="d-flex" style="gap:2px">`
+                        // console.log(typeof(key))
+                        var i = 1;
+                        values.forEach(element => {
+                            // console.log(element)
 
-            })
+                            productDescription += `<span class="filtervals" title="${element}" style="background-color: ${element}; width:10px; height:10px; display: inline-flex; border:1px solid #000;"><input type="radio" name="${key}" class="selectfilter"  value="${element}"></span><br>`
+                            i++;
+                        });
 
-            document.querySelector(".productinner").innerHTML = productDescription;
-
-            document.querySelector("#imgslider").innerHTML = producthtml;
-
-
-
-            var objattributeLenght = Object.keys(productarray[productIndex].attributes).length;
-            // showSlides();
-            var filtersattribute = {}
-            var selectedFilters = document.querySelectorAll(".selectfilter");
-            // console.log(selectedFilters.length + " lenght")
-            selectedFilters.forEach(function (filter) {
-                filter.addEventListener("change", function () {
-                    // console.log("hi")
-                    if (!filtersattribute[this.name]) {
-                        filtersattribute[this.name] = [];
+                        productDescription += `</div>`
                     }
-                    if (this.checked) {
-                        if (filtersattribute[this.name].length > 0) {
-                            filtersattribute[this.name].splice(0, 1);
-                        }
-                        filtersattribute[this.name].push(this.value);
+                    else {
+
+                        productDescription += ` <strong class="mb-2">${key[0].toUpperCase() + key.slice(1)}</strong><br>`
+                        var i = 1;
+                        values.forEach(element => {
+                            // console.log(element)
+
+                            productDescription += `<span class="filtervals" style="border:1px solid #cacaca; width:15px; height:15px; text-align:center; margin: 0 10px;" title="${element}">${element} <input type="radio" name="${key}" class="selectfilter"  value="${element}"></span>`
+                            i++;
+                        });
                     }
 
 
-                    console.log(filtersattribute)
+                    productDescription += "</div>";
+                })
 
-                    var objfiltersattributeenght = Object.keys(filtersattribute).length;
+                document.querySelector(".productinner").innerHTML = productDescription;
 
-                    productarray[productIndex].variations.forEach(elem => {
-                        let allMatch = true;
-                        for (let key in filtersattribute) {
-                            if (!filtersattribute[key].includes(elem[key])) {
-                                allMatch = false;
-                                break;
-                            }
+                document.querySelector("#imgslider").innerHTML = producthtml;
+
+
+
+                var objattributeLenght = Object.keys(attributesSingleproduct).length;
+                // showSlides();
+                var filtersattribute = {}
+                var selectedFilters = document.querySelectorAll(".selectfilter");
+                // console.log(selectedFilters.length + " lenght")
+                selectedFilters.forEach(function (filter) {
+                    filter.addEventListener("change", function () {
+                        // console.log("hi")
+                        if (!filtersattribute[this.name]) {
+                            filtersattribute[this.name] = [];
                         }
-                        if (allMatch) {
-                            if (objfiltersattributeenght === objattributeLenght) {
-                                JSON.stringify(elem);
-                                document.querySelector("#price").innerHTML = "$" + elem.price;
-                                document.querySelector("#mainimg").src = elem.img;
-                                if (elem.galleryimg.length > 0) {
-                                    var galleryimgvariations = "";
-                                    console.log(elem.galleryimg)
-                                    elem.galleryimg.forEach(image => {
-                                        galleryimgvariations += ` <img class="swipesimg" src="${image}">`;
-                                    })
-                                    document.querySelector("#galleryimg").innerHTML = galleryimgvariations;
-                                }
-                                else {
-                                    document.querySelector("#galleryimg").innerHTML = "";
+                        if (this.checked) {
+                            if (filtersattribute[this.name].length > 0) {
+                                filtersattribute[this.name].splice(0, 1);
+                            }
+                            filtersattribute[this.name].push(this.value);
+                        }
+
+
+                        console.log(filtersattribute)
+
+                        var objfiltersattributeenght = Object.keys(filtersattribute).length;
+                        var variationSingleproduct = JSON.parse(productData.variations);
+                        variationSingleproduct.forEach(elem => {
+                            let allMatch = true;
+                            for (let key in filtersattribute) {
+                                if (!filtersattribute[key].includes(elem[key])) {
+                                    allMatch = false;
+                                    break;
                                 }
                             }
-                            // console.log(`Matching Variation: ${JSON.stringify(elem)}`);
-                            // console.log(`Price: ${elem.price}`);
-                        }
+                            if (allMatch) {
+                                if (objfiltersattributeenght === objattributeLenght) {
+                                    JSON.stringify(elem);
+                                    var pricemain = elem.price;
+                                    // alert(pricemain);
+                                    document.querySelector("#price").innerHTML = "$" + elem.price;
+                                    document.querySelector(".add-to-cart").removeAttribute("disabled");
+                                    document.querySelector(".add-to-cart").setAttribute("price", elem.price);
+                                    document.querySelector(".add-to-cart").setAttribute("img", elem.img);
+                                    document.querySelector("#mainimg").src = elem.img;
+                                    // console.log(elem.gallery.length + " variations my")
+                                    if (elem.gallery.length > 0) {
+                                        var galleryimgvariations = "";
+                                        console.log(elem.galleryimg)
+                                        elem.gallery.forEach(image => {
+                                            galleryimgvariations += ` <img class="swipesimg" src="${image}">`;
+                                        })
+                                        document.querySelector("#galleryimg").innerHTML = galleryimgvariations;
+                                    }
+                                    else {
+                                        document.querySelector("#galleryimg").innerHTML = "";
+                                    }
+                                }
+                                // console.log(`Matching Variation: ${JSON.stringify(elem)}`);
+                                // console.log(`Price: ${elem.price}`);
+                            }
+
+                        })
+                        var swiperimgages = document.querySelectorAll(".swipesimg");
+                        swiperImg(swiperimgages)
+
+
 
                     })
-                    var swiperimgages = document.querySelectorAll(".swipesimg");
-                    swiperImg(swiperimgages)
+                })
 
 
+                var swiperimgages = document.querySelectorAll(".swipesimg");
+                swiperImg(swiperimgages)
+
+                var addTocart = document.querySelector(".add-to-cart");
+                addTocart.addEventListener("click", function (e) {
+                    // alert("add to ")
+                    var selectedattributes = document.querySelectorAll(".selectfilter:checked");
+                    // console.log(selectedattributes)
+                    var selectedfitervals = {};
+                    var selectvalues = Array.from(selectedattributes).map(function (radio) {
+                        if (!selectedfitervals[radio.name]) {
+                            selectedfitervals[radio.name] = new Set();
+                        }
+                        if (radio.checked) {
+                            selectedfitervals[radio.name].add(radio.value);
+                        }
+                        return selectedfitervals;
+                    })
+                    Object.keys(selectedfitervals).forEach(function (key) {
+                        selectedfitervals[key] = Array.from(selectedfitervals[key]);
+                    });
+
+                    console.log(selectedfitervals);
+                    console.log(selectvalues + "hdh")
+                    console.log(e.target.getAttribute("data-productid"))
+
+                    var formData = new FormData();
+                    formData.append("filters", JSON.stringify(selectedfitervals));
+                    formData.append("productid", e.target.getAttribute("data-productid"));
+                    formData.append("price", e.target.getAttribute("price"));
+                    formData.append("img", e.target.getAttribute("img"));
+                    if (selectvalues) {
+                        var xhr = new XMLHttpRequest();
+                        xhr.open("POST", "add-to-cart.php", true);
+
+                        xhr.onreadystatechange = function () {
+                            if (xhr.readyState === XMLHttpRequest.DONE) {
+                                if (xhr.status === 200) {
+                                   var response = JSON.parse(xhr.response);
+                                   if(response.success){
+                                        document.querySelector("#cartbutton").innerHTML = "<a href='cart.php'>Go to cart</a>"
+                                   }
+                                }
+                            }
+                        };
+
+                        xhr.send(formData);
+                    }
+
+                    // console.log(selectvalues + "gg");
 
                 })
-            })
-
-
-            var swiperimgages = document.querySelectorAll(".swipesimg");
-            swiperImg(swiperimgages)
-
-
+            }
+            else {
+                console.error('No product data found.');
+            }
+        } catch (error) {
+            console.error('Error:', error);
         }
+
     }
 
 
@@ -561,5 +310,5 @@
         }, 2000); // 2 seconds interval
     }
 </script>
-
+</body>
 </html>
