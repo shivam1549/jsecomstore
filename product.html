@@ -47,268 +47,443 @@
         </div>
     </div>
 
+    <!-- Button trigger modal -->
+    <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Launch demo modal
+  </button> -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Login Now</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="loginForm">
+                        <div class="mb-3">
+                            <label for="loginEmail" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="loginEmail">
+                            <div id="emailError" class="text-danger"></div> <!-- Error message container -->
+                        </div>
+                        <input type="hidden" id="logintest" value="">
+                        <div class="mb-3">
+                            <label for="loginPassword" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="loginPassword">
+                            <div id="passwordError" class="text-danger"></div> <!-- Error message container -->
+                        </div>
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </form>
+                </div>
+                <!-- <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div> -->
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+    <script>
 
 
-<script>
+        // showProduct();
 
+        async function fetchDataById() {
 
-    // showProduct();
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const id = urlParams.get('id');
 
-    async function fetchDataById() {
-
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
-        const id = urlParams.get('id');
-
-        try {
-            const response = await fetch(`get-single-product.php?data=${id}`);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+            try {
+                const response = await fetch(`get-single-product.php?data=${id}`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                console.log(data);
+                return data;
+            } catch (error) {
+                console.error('Error fetching data:', error);
             }
-            const data = await response.json();
-            console.log(data);
-            return data;
-        } catch (error) {
-            console.error('Error fetching data:', error);
+
+            // console.log(id)
+
         }
+        showProductdetails();
+        async function showProductdetails() {
 
-        // console.log(id)
-
-    }
-    showProductdetails();
-    async function showProductdetails() {
-
-        try {
-            const productDatas = await fetchDataById();
-            const productData = productDatas.data;
-            if (productData) {
-                var producthtml = '';
-                var productDescription = '';
-                // alert(productIndex); 
-                producthtml += `
+            try {
+                const productDatas = await fetchDataById();
+                const productData = productDatas.data;
+                if (productData) {
+                    var producthtml = '';
+                    var productDescription = '';
+                    // alert(productIndex); 
+                    producthtml += `
      <div class="swipercontainerwrap">
             <img class="w-100 swipesimg" id="mainimg" src="${productData.image}"><div id="galleryimg" class="galleryimg">`;
-                // console.log(productData.gallery + "gallimages")
-                if (productData.gallery) {
-                    const galleryArray = JSON.parse(productData.gallery);
-                    galleryArray.forEach(img => {
-                        producthtml += ` <img class="swipesimg" src="${img}">`;
-                    })
-                }
-                producthtml += `</div></div>`;
-                productDescription += `
+                    // console.log(productData.gallery + "gallimages")
+                    if (productData.gallery) {
+                        const galleryArray = JSON.parse(productData.gallery);
+                        galleryArray.forEach(img => {
+                            producthtml += ` <img class="swipesimg" src="${img}">`;
+                        })
+                    }
+                    producthtml += `</div></div>`;
+                    productDescription += `
      <h2>${productData.title}</h2>
 
      <h5 class="text-success bold mt-2 mb-2" id="price"></h5>
 
      <div>${productData.description}</div>
-     <div><button type="button" disabled="true" data-productid="${productData.id}" class="btn btn-info add-to-cart">Add to cart +</button></div>
+     <div><button type="button" disabled="true" data-productid="${productData.id}" class="btn btn-info add-to-cart">Add to cart +</button>
+        <button type="button" data-productid="${productData.id}" class="btn btn-secondary add-to-wihslist">Add to wishlist +</button>
+        </div>
+     
      <div id="cartbutton"></div>
 
 
      `;
-                //  console.log(productData.long_description)
-                // console.log(productData.attributes + "Argrrpro")
-                var attributesSingleproduct = JSON.parse(productData.attributes);
-                Object.entries(attributesSingleproduct).map(([key, values]) => {
-                    productDescription += "<div>";
-                    if (key === "color" || key === "Color") {
-                        productDescription += `<strong class="mb-2">${key[0].toUpperCase() + key.slice(1)}</strong><br>`;
-                        productDescription += `<div class="d-flex" style="gap:2px">`
-                        // console.log(typeof(key))
-                        var i = 1;
-                        values.forEach(element => {
-                            // console.log(element)
+                    //  console.log(productData.long_description)
+                    // console.log(productData.attributes + "Argrrpro")
+                    var attributesSingleproduct = JSON.parse(productData.attributes);
+                    Object.entries(attributesSingleproduct).map(([key, values]) => {
+                        productDescription += "<div>";
+                        if (key === "color" || key === "Color") {
+                            productDescription += `<strong class="mb-2">${key[0].toUpperCase() + key.slice(1)}</strong><br>`;
+                            productDescription += `<div class="d-flex" style="gap:2px">`
+                            // console.log(typeof(key))
+                            var i = 1;
+                            values.forEach(element => {
+                                // console.log(element)
 
-                            productDescription += `<span class="filtervals" title="${element}" style="background-color: ${element}; width:10px; height:10px; display: inline-flex; border:1px solid #000;"><input type="radio" name="${key}" class="selectfilter"  value="${element}"></span><br>`
-                            i++;
-                        });
+                                productDescription += `<span class="filtervals" title="${element}" style="background-color: ${element}; width:10px; height:10px; display: inline-flex; border:1px solid #000;"><input type="radio" name="${key}" class="selectfilter"  value="${element}"></span><br>`
+                                i++;
+                            });
 
-                        productDescription += `</div>`
-                    }
-                    else {
-
-                        productDescription += ` <strong class="mb-2">${key[0].toUpperCase() + key.slice(1)}</strong><br>`
-                        var i = 1;
-                        values.forEach(element => {
-                            // console.log(element)
-
-                            productDescription += `<span class="filtervals" style="border:1px solid #cacaca; width:15px; height:15px; text-align:center; margin: 0 10px;" title="${element}">${element} <input type="radio" name="${key}" class="selectfilter"  value="${element}"></span>`
-                            i++;
-                        });
-                    }
-
-
-                    productDescription += "</div>";
-                })
-
-                document.querySelector(".productinner").innerHTML = productDescription;
-
-                document.querySelector("#imgslider").innerHTML = producthtml;
-
-
-
-                var objattributeLenght = Object.keys(attributesSingleproduct).length;
-                // showSlides();
-                var filtersattribute = {}
-                var selectedFilters = document.querySelectorAll(".selectfilter");
-                // console.log(selectedFilters.length + " lenght")
-                selectedFilters.forEach(function (filter) {
-                    filter.addEventListener("change", function () {
-                        // console.log("hi")
-                        if (!filtersattribute[this.name]) {
-                            filtersattribute[this.name] = [];
+                            productDescription += `</div>`
                         }
-                        if (this.checked) {
-                            if (filtersattribute[this.name].length > 0) {
-                                filtersattribute[this.name].splice(0, 1);
-                            }
-                            filtersattribute[this.name].push(this.value);
+                        else {
+
+                            productDescription += ` <strong class="mb-2">${key[0].toUpperCase() + key.slice(1)}</strong><br>`
+                            var i = 1;
+                            values.forEach(element => {
+                                // console.log(element)
+
+                                productDescription += `<span class="filtervals" style="border:1px solid #cacaca; width:15px; height:15px; text-align:center; margin: 0 10px;" title="${element}">${element} <input type="radio" name="${key}" class="selectfilter"  value="${element}"></span>`
+                                i++;
+                            });
                         }
 
 
-                        console.log(filtersattribute)
+                        productDescription += "</div>";
+                    })
 
-                        var objfiltersattributeenght = Object.keys(filtersattribute).length;
-                        var variationSingleproduct = JSON.parse(productData.variations);
-                        variationSingleproduct.forEach(elem => {
-                            let allMatch = true;
-                            for (let key in filtersattribute) {
-                                if (!filtersattribute[key].includes(elem[key])) {
-                                    allMatch = false;
-                                    break;
-                                }
+                    document.querySelector(".productinner").innerHTML = productDescription;
+
+                    document.querySelector("#imgslider").innerHTML = producthtml;
+
+
+
+                    var objattributeLenght = Object.keys(attributesSingleproduct).length;
+                    // showSlides();
+                    var filtersattribute = {}
+                    var selectedFilters = document.querySelectorAll(".selectfilter");
+                    // console.log(selectedFilters.length + " lenght")
+                    selectedFilters.forEach(function (filter) {
+                        filter.addEventListener("change", function () {
+                            // console.log("hi")
+                            if (!filtersattribute[this.name]) {
+                                filtersattribute[this.name] = [];
                             }
-                            if (allMatch) {
-                                if (objfiltersattributeenght === objattributeLenght) {
-                                    JSON.stringify(elem);
-                                    var pricemain = elem.price;
-                                    // alert(pricemain);
-                                    document.querySelector("#price").innerHTML = "$" + elem.price;
-                                    document.querySelector(".add-to-cart").removeAttribute("disabled");
-                                    document.querySelector(".add-to-cart").setAttribute("price", elem.price);
-                                    document.querySelector(".add-to-cart").setAttribute("img", elem.img);
-                                    document.querySelector("#mainimg").src = elem.img;
-                                    // console.log(elem.gallery.length + " variations my")
-                                    if (elem.gallery.length > 0) {
-                                        var galleryimgvariations = "";
-                                        console.log(elem.galleryimg)
-                                        elem.gallery.forEach(image => {
-                                            galleryimgvariations += ` <img class="swipesimg" src="${image}">`;
-                                        })
-                                        document.querySelector("#galleryimg").innerHTML = galleryimgvariations;
-                                    }
-                                    else {
-                                        document.querySelector("#galleryimg").innerHTML = "";
+                            if (this.checked) {
+                                if (filtersattribute[this.name].length > 0) {
+                                    filtersattribute[this.name].splice(0, 1);
+                                }
+                                filtersattribute[this.name].push(this.value);
+                            }
+
+
+                            console.log(filtersattribute)
+
+                            var objfiltersattributeenght = Object.keys(filtersattribute).length;
+                            var variationSingleproduct = JSON.parse(productData.variations);
+                            variationSingleproduct.forEach(elem => {
+                                let allMatch = true;
+                                for (let key in filtersattribute) {
+                                    if (!filtersattribute[key].includes(elem[key])) {
+                                        allMatch = false;
+                                        break;
                                     }
                                 }
-                                // console.log(`Matching Variation: ${JSON.stringify(elem)}`);
-                                // console.log(`Price: ${elem.price}`);
-                            }
+                                if (allMatch) {
+                                    if (objfiltersattributeenght === objattributeLenght) {
+                                        JSON.stringify(elem);
+                                        var pricemain = elem.price;
+                                        // alert(pricemain);
+                                        document.querySelector("#price").innerHTML = "$" + elem.price;
+                                        document.querySelector(".add-to-cart").removeAttribute("disabled");
+                                        document.querySelector(".add-to-cart").setAttribute("price", elem.price);
+                                        document.querySelector(".add-to-cart").setAttribute("img", elem.img);
+                                        document.querySelector("#mainimg").src = elem.img;
+                                        // console.log(elem.gallery.length + " variations my")
+                                        if (elem.gallery.length > 0) {
+                                            var galleryimgvariations = "";
+                                            console.log(elem.galleryimg)
+                                            elem.gallery.forEach(image => {
+                                                galleryimgvariations += ` <img class="swipesimg" src="${image}">`;
+                                            })
+                                            document.querySelector("#galleryimg").innerHTML = galleryimgvariations;
+                                        }
+                                        else {
+                                            document.querySelector("#galleryimg").innerHTML = "";
+                                        }
+                                    }
+                                    // console.log(`Matching Variation: ${JSON.stringify(elem)}`);
+                                    // console.log(`Price: ${elem.price}`);
+                                }
+
+                            })
+                            var swiperimgages = document.querySelectorAll(".swipesimg");
+                            swiperImg(swiperimgages)
+
+
 
                         })
-                        var swiperimgages = document.querySelectorAll(".swipesimg");
-                        swiperImg(swiperimgages)
-
-
-
                     })
-                })
 
 
-                var swiperimgages = document.querySelectorAll(".swipesimg");
-                swiperImg(swiperimgages)
+                    var swiperimgages = document.querySelectorAll(".swipesimg");
+                    swiperImg(swiperimgages)
 
-                var addTocart = document.querySelector(".add-to-cart");
-                addTocart.addEventListener("click", function (e) {
-                    // alert("add to ")
-                    var selectedattributes = document.querySelectorAll(".selectfilter:checked");
-                    // console.log(selectedattributes)
-                    var selectedfitervals = {};
-                    var selectvalues = Array.from(selectedattributes).map(function (radio) {
-                        if (!selectedfitervals[radio.name]) {
-                            selectedfitervals[radio.name] = new Set();
-                        }
-                        if (radio.checked) {
-                            selectedfitervals[radio.name].add(radio.value);
-                        }
-                        return selectedfitervals;
-                    })
-                    Object.keys(selectedfitervals).forEach(function (key) {
-                        selectedfitervals[key] = Array.from(selectedfitervals[key]);
-                    });
-
-                    console.log(selectedfitervals);
-                    console.log(selectvalues + "hdh")
-                    console.log(e.target.getAttribute("data-productid"))
-
-                    var formData = new FormData();
-                    formData.append("filters", JSON.stringify(selectedfitervals));
-                    formData.append("productid", e.target.getAttribute("data-productid"));
-                    formData.append("price", e.target.getAttribute("price"));
-                    formData.append("img", e.target.getAttribute("img"));
-                    if (selectvalues) {
-                        var xhr = new XMLHttpRequest();
-                        xhr.open("POST", "add-to-cart.php", true);
-
-                        xhr.onreadystatechange = function () {
-                            if (xhr.readyState === XMLHttpRequest.DONE) {
-                                if (xhr.status === 200) {
-                                   var response = JSON.parse(xhr.response);
-                                   if(response.success){
-                                        document.querySelector("#cartbutton").innerHTML = "<a href='cart.php'>Go to cart</a>"
-                                   }
-                                }
+                    var addTocart = document.querySelector(".add-to-cart");
+                    addTocart.addEventListener("click", function (e) {
+                        // alert("add to ")
+                        var selectedattributes = document.querySelectorAll(".selectfilter:checked");
+                        // console.log(selectedattributes)
+                        var selectedfitervals = {};
+                        var selectvalues = Array.from(selectedattributes).map(function (radio) {
+                            if (!selectedfitervals[radio.name]) {
+                                selectedfitervals[radio.name] = new Set();
                             }
-                        };
+                            if (radio.checked) {
+                                selectedfitervals[radio.name].add(radio.value);
+                            }
+                            return selectedfitervals;
+                        })
+                        Object.keys(selectedfitervals).forEach(function (key) {
+                            selectedfitervals[key] = Array.from(selectedfitervals[key]);
+                        });
 
-                        xhr.send(formData);
-                    }
+                        console.log(selectedfitervals);
+                        console.log(selectvalues + "hdh")
+                        console.log(e.target.getAttribute("data-productid"))
 
-                    // console.log(selectvalues + "gg");
+                        var formData = new FormData();
+                        formData.append("filters", JSON.stringify(selectedfitervals));
+                        formData.append("productid", e.target.getAttribute("data-productid"));
+                        formData.append("price", e.target.getAttribute("price"));
+                        formData.append("img", e.target.getAttribute("img"));
+                        if (selectvalues) {
+                            var xhr = new XMLHttpRequest();
+                            xhr.open("POST", "add-to-cart.php", true);
 
-                })
+                            xhr.onreadystatechange = function () {
+                                if (xhr.readyState === XMLHttpRequest.DONE) {
+                                    if (xhr.status === 200) {
+                                        var response = JSON.parse(xhr.response);
+                                        if (response.success) {
+                                            document.querySelector("#cartbutton").innerHTML = "<a href='cart.php'>Go to cart</a>"
+                                        }
+                                    }
+                                }
+                            };
+
+                            xhr.send(formData);
+                        }
+
+                        // console.log(selectvalues + "gg");
+
+                    })
+
+                    document.querySelector(".add-to-wihslist").addEventListener("click", function (e) {
+                        checkloginStatus().then(loggedin => {
+                            if (loggedin) {
+
+                                var formData = new FormData();
+                                formData.append("productid", e.target.getAttribute("data-productid"));
+                                var xhr = new XMLHttpRequest();
+                                xhr.open("POST", "codes/add-to-wishlist.php", true);
+
+                                xhr.onreadystatechange = function () {
+                                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                                        if (xhr.status === 200) {
+                                            console.log(response);
+                                            var response = JSON.parse(xhr.response);
+                                            if (response.msg) {
+                                                document.querySelector("#cartbutton").innerHTML = "<a href='wishlist.php'>Go to wishlist</a>"
+                                            }
+                                            
+                                            else {
+                                                alert("Something went wrong");
+                                            }
+                                        }
+                                    }
+                                };
+
+                                xhr.send(formData);
+
+                            }
+                            else {
+                                var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {
+                                    keyboard: false
+                                });
+                                myModal.show();
+
+                            }
+                        }).catch(error => {
+                            console.error(error);
+                        });
+
+                    })
+                }
+                else {
+                    console.error('No product data found.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
             }
-            else {
-                console.error('No product data found.');
-            }
-        } catch (error) {
-            console.error('Error:', error);
+
         }
 
-    }
+
+        function checkloginStatus() {
+            return new Promise((resolve, reject) => {
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", "codes/checklogin.php", true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status === 200) {
+                            var resp = JSON.parse(xhr.response);
+                            if (resp.loggedIn) {
+                                alert("hi")
+                                resolve(true);
+                            } else {
+
+                                resolve(false);
+                            }
+                        } else {
+                            reject(new Error('Request failed'));
+                        }
+                    }
+                };
+                xhr.send();
+            });
+        }
 
 
-    function swiperImg(swiperimg) {
-        swiperimg.forEach(swiper => {
-            swiper.addEventListener("click", function () {
-                // Display an alert when an image is clicked
-                // alert("he");
+        function swiperImg(swiperimg) {
+            swiperimg.forEach(swiper => {
+                swiper.addEventListener("click", function () {
+                    // Display an alert when an image is clicked
+                    // alert("he");
 
-                // Set the src of the main image to the src of the clicked image
-                document.querySelector("#mainimg").src = this.src;
+                    // Set the src of the main image to the src of the clicked image
+                    document.querySelector("#mainimg").src = this.src;
+                });
+            });
+        }
+
+        function showSlides() {
+            // console.log("first")
+            const slideshowContainer = document.querySelector('.swipercontainerwrap');
+            const slides = slideshowContainer.querySelectorAll('.swipesimg');
+            let currentSlideIndex = 0;
+
+            slides.forEach(slide => {
+                slide.style.display = 'none';
+            });
+
+            slides[currentSlideIndex].style.display = 'block';
+
+            setInterval(() => {
+                slides[currentSlideIndex].style.display = 'none';
+                currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+                slides[currentSlideIndex].style.display = 'block';
+            }, 2000); // 2 seconds interval
+        }
+
+
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('loginForm').addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                // Clear previous error messages
+                document.getElementById('emailError').textContent = '';
+                document.getElementById('passwordError').textContent = '';
+
+                // Get form data
+                const email = document.getElementById('loginEmail').value;
+                const password = document.getElementById('loginPassword').value;
+                const testid = document.querySelector("#logintest").value
+
+                // Validate email
+                if (!isValidEmail(email)) {
+                    document.getElementById('emailError').textContent = 'Invalid email format';
+                    return;
+                }
+
+                // Validate password
+                if (password.length <= 0) {
+                    document.getElementById('passwordError').textContent = 'Password required';
+                    return;
+                }
+
+                // Prepare data for submission
+                const formData = new FormData();
+                formData.append('email', email);
+                formData.append('password', password);
+
+                // AJAX request to submit form data
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', 'codes/login.php', true);
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status === 200) {
+                            const response = JSON.parse(xhr.response);
+                            if (response.message == 'Login success') {
+                                //   window.location.href = ``;
+                                alert("login-success");
+                                // Login successful, redirect to dashboard or homepage
+                                // alert('Login successful!');
+                                // window.location.href = 'dashboard.php'; 
+                            } else {
+                                // Login failed, display error message
+                                alert(response.message);
+                            }
+                        } else {
+                            console.error('Error: ' + xhr.status);
+                        }
+                    }
+                };
+                xhr.send(formData);
             });
         });
-    }
 
-    function showSlides() {
-        // console.log("first")
-        const slideshowContainer = document.querySelector('.swipercontainerwrap');
-        const slides = slideshowContainer.querySelectorAll('.swipesimg');
-        let currentSlideIndex = 0;
-
-        slides.forEach(slide => {
-            slide.style.display = 'none';
-        });
-
-        slides[currentSlideIndex].style.display = 'block';
-
-        setInterval(() => {
-            slides[currentSlideIndex].style.display = 'none';
-            currentSlideIndex = (currentSlideIndex + 1) % slides.length;
-            slides[currentSlideIndex].style.display = 'block';
-        }, 2000); // 2 seconds interval
-    }
-</script>
+        // Function to validate email format
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+    </script>
 </body>
+
 </html>
