@@ -67,6 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $random_number = rand(1000, 9999);
         $last_id = $conn->insert_id;
         $ordernumber  = "EIN" . $random_number . $last_id;
+        $_SESSION['orderid'] = $ordernumber;
         $update_stmt = $conn->prepare("UPDATE orders SET order_number = ? WHERE id = ?");
         $update_stmt->bind_param("si", $ordernumber, $last_id);
 
@@ -75,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           // Process phone pay
           $merchantId = 'PGTESTPAYUAT86'; // sandbox or test merchantId
           $apiKey = "96434309-7796-489d-8924-ab56988a6076"; // sandbox or test APIKEY
-          $redirectUrl = 'payment-success.php';
+          $redirectUrl = 'http://localhost/ecomm/payment-success.php';
         
           // Set transaction details
           $order_id = $ordernumber;

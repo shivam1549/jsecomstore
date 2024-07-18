@@ -1,0 +1,15 @@
+Admin End
+Category creation crud
+Order Management, invoice mail send to user
+Product CRUD
+USER Management
+Reviews management
+Dashboard chart
+
+User end
+Wishlist
+login register
+Review
+Category wise product show
+Home page 
+My account
