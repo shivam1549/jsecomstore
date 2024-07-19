@@ -45,6 +45,44 @@
                 </div>
             </div>
         </div>
+        <hr>
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
+
+                        <form id="ratingForm">
+                            <div class="form-group">
+                                <label for="">Name</label>
+                                <input type="text" value="Shivam" class="form-control" name="username" id="username">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Subject</label>
+                                <input type="text" value="Test" class="form-control" name="subject" id="subject">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Star</label>
+                                <select class="form-control" name="rating" id="rating">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="">Star</label>
+                                <textarea name="message"  class="form-control" name="message" id="message">Shivam</textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-success mt-2">Rate Now!</button>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Button trigger modal -->
@@ -328,7 +366,7 @@
                                             if (response.msg) {
                                                 document.querySelector("#cartbutton").innerHTML = "<a href='wishlist.php'>Go to wishlist</a>"
                                             }
-                                            
+
                                             else {
                                                 alert("Something went wrong");
                                             }
@@ -483,6 +521,88 @@
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             return emailRegex.test(email);
         }
+
+
+        document.getElementById('ratingForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            checkloginStatus().then(loggedin => {
+                if (loggedin) {
+
+
+                    var username = document.getElementById('username');
+                    var subject = document.getElementById('subject');
+                    var message = document.getElementById('message');
+
+                    var namePattern = /^[A-Za-z\s]+$/;
+                    var messagePattern = /^[A-Za-z\s]+$/;
+
+                    var isValid = true;
+
+                    // Reset border colors
+                    username.style.borderColor = '';
+                    subject.style.borderColor = '';
+                    message.style.borderColor = '';
+
+                    if (!namePattern.test(username.value.trim())) {
+                        username.style.borderColor = 'red';
+                        isValid = false;
+                    }
+
+                    if (!namePattern.test(subject.value.trim())) {
+                        subject.style.borderColor = 'red';
+                        isValid = false;
+                    }
+
+                    if (!messagePattern.test(message.value.trim())) {
+                        message.style.borderColor = 'red';
+                        isValid = false;
+                    }
+
+                    if (!isValid) {
+                        alert("notvalid")
+                        event.preventDefault();
+                    }
+                    else {
+                        alert("valid")
+                        const queryString = window.location.search;
+                        const urlParams = new URLSearchParams(queryString);
+                        const id = urlParams.get('id');
+                        const formData = new FormData(document.getElementById('ratingForm'));
+                        formData.append("productid", id);
+                        const xhr = new XMLHttpRequest();
+                        xhr.open('POST', 'codes/rating.php', true);
+                        xhr.onreadystatechange = function () {
+                            if (xhr.readyState === XMLHttpRequest.DONE) {
+                                if (xhr.status === 200) {
+                                    const response = JSON.parse(xhr.response);
+                                    if (response.msg) {
+                                        //   window.location.href = ``;
+                                        alert("login-success");
+                                        // Login successful, redirect to dashboard or homepage
+                                        // alert('Login successful!');
+                                        // window.location.href = 'dashboard.php'; 
+                                    } else {
+                                        // Login failed, display error message
+                                        alert(response.message);
+                                    }
+                                } else {
+                                    console.error('Error: ' + xhr.status);
+                                }
+                            }
+                        };
+                        xhr.send(formData);
+                    }
+                }
+                else {
+                    var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {
+                        keyboard: false
+                    });
+                    myModal.show();
+                }
+            }).catch(error => {
+                console.error(error);
+            });
+        });
     </script>
 </body>
 
